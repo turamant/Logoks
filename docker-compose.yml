@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build: ./myNewProject
+    command: python ./manage.py runserver 0.0.0.0:8000
+    ports:
+    - 8000:8000
+    volumes:
+    - ./myNewProject:/data
+    depends_on:
+    - db
+
+  db:
+    image: 'postgres:12-alpine'
+    restart : always
+    environment:
+     DATABASE_URL: postgres://postgres@db/postgres
+     POSTGRES_PASSWORD: postgres
+
